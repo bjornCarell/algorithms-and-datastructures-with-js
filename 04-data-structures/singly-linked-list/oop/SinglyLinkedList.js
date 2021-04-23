@@ -5,6 +5,8 @@ class Node {
   }
 }
 
+let newNode = new Node('Hello');
+
 class SinglyLinkedList {
   constructor() {
     this.head = null;
@@ -173,6 +175,6 @@ class SinglyLinkedList {
 let list = new SinglyLinkedList();
 list.push('Hi');
 list.push('Bye');
-list.push(999);
+list.push('Huh!');
 
-console.log(list.reverse());
+console.log(list);
