@@ -59,21 +59,40 @@ class BinarysearchTree {
     }
     return current ? current : 'Not found';
   }
+
+  breadthFirstSearch() {
+    let firstNode = this.root
+    let queue = []; // First In First Out - FIFO
+    let visited = [];
+
+    queue.push(firstNode);
+
+    while (queue.length) {
+      firstNode = queue.shift();
+      visited.push(firstNode);
+
+      if (firstNode.left) {
+        queue.push(firstNode.left);
+      }
+
+      if (firstNode.right) {
+        queue.push(firstNode.right);
+      }
+    }
+
+    return visited;
+  }
 }
 
 let bst = new BinarysearchTree();
-
-bst.insert(9);
+bst.insert(9);  // root
 bst.insert(13); // root.right
 bst.insert(11); // root.right.left
-bst.insert(13); // Duplicate - Does not get inserted
 bst.insert(5);  // root.left
-bst.insert(2);  // root.left.right
-bst.insert(7);  // root.left.left
-
+bst.insert(2);  // root.left.left
+bst.insert(7);  // root.left.right
 
 console.log({
-  is19: bst.find(19), // Not found
-  is7: bst.find(7),   // Node
-  is9: bst.find(9)    // Node
-}); 
+  allNodeValues: bst.breadthFirstSearch().map(node => node.value)
+});
+

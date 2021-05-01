@@ -42,38 +42,29 @@ class BinarysearchTree {
     }
   }
 
-  find(value) {
-    if (!this.root) return undefined;
-  
-    let current = this.root;
-    let found = false;
+  preOrder() {
+    let values = [];
 
-    while (current && !found) {
-      if (value < current.value) {
-          current = current.left
-      } else if (value > current.value) {
-          current = current.right;
-      } else {
-        found = true;
-      }
+    function traverse(node) {
+      values.push(node.value);
+      // The base - no left or right
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right); 
     }
-    return current ? current : 'Not found';
+
+    traverse(this.root);
+
+    return values;
   }
-}
+} 
 
-let bst = new BinarysearchTree();
-
-bst.insert(9);
+const bst = new BinarysearchTree();
+bst.insert(9);  // root
 bst.insert(13); // root.right
 bst.insert(11); // root.right.left
-bst.insert(13); // Duplicate - Does not get inserted
 bst.insert(5);  // root.left
-bst.insert(2);  // root.left.right
-bst.insert(7);  // root.left.left
+bst.insert(2);  // root.left.left
+bst.insert(7);  // root.left.right
 
-
-console.log({
-  is19: bst.find(19), // Not found
-  is7: bst.find(7),   // Node
-  is9: bst.find(9)    // Node
-}); 
+const traversed = bst.preOrder();
+console.log(traversed); // [ 9, 5, 2, 7, 13, 11 ]
